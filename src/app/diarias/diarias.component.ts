@@ -10,13 +10,16 @@ import { Diaria } from '../models';
 })
 export class DiariasComponent implements OnInit {
   diarias: Diaria[];
+  loading: boolean;
 
   constructor(private ementasService: EmentasService) {}
 
   ngOnInit(): void {
+    this.loading = true;
     console.log('oninit diarias.componnet');
     this.ementasService.getEmentas().subscribe((diarias: Diaria[]) => {
       this.diarias = diarias;
+      this.loading = false;
     });
   }
 }

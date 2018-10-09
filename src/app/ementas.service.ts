@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 import { Diaria } from './models';
 
 @Injectable({
@@ -10,9 +9,7 @@ import { Diaria } from './models';
 export class EmentasService {
   private diarias: Diaria[];
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   getEmentas() {
     const apiUrl: string =
@@ -33,9 +30,9 @@ export class EmentasService {
   }
 
   getDiaria(id: number) {
-    if (!this.diarias) {
-      this.getEmentas();
+    if (localStorage.getItem('diarias')) {
+      this.diarias = JSON.parse(localStorage.getItem('diarias'));
+      return this.diarias.find(diaria => diaria.id == id);
     }
-    return this.diarias.find(diaria => diaria.id == id);
   }
 }
