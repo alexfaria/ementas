@@ -1,0 +1,29 @@
+<div class="card-deck">
+	<div class="card">
+		<div class="card-header">Almoço</div>
+		<div class="card-body">
+			<div class="card-dolumns">
+				<div class="card" *ngFor="let prato of diaria.almoco.pratos">
+					<div class="card-header">{{prato.tipo}}</div>
+					<div class="card-body">
+						{{prato.nome}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">Jantar</div>
+		<div class="card-body">
+			<div class="card-dolumns">
+				<div class="card" *ngFor="let prato of diaria.jantar.pratos">
+					<div class="card-header">{{prato.tipo}}</div>
+					<div class="card-body">
+						{{prato.nome}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
