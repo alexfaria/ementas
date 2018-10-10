@@ -21,25 +21,25 @@ import {
   MatGridListModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MAT_DATE_LOCALE
 } from '@angular/material';
+
+/* Hammer Imports */
+import 'hammerjs';
+import 'hammer-timejs';
 
 import {
   HammerGestureConfig,
   HAMMER_GESTURE_CONFIG
 } from '@angular/platform-browser';
 
-import * as Hammer from 'hammerjs';
-
+declare var Hammer: any;
 export class HammerConfig extends HammerGestureConfig {
-  /* overrides = <any>{
-    // swipe: { velocity: 0.4, threshold: 20 },
-    // pan: { direction: 6 },
-    pinch: { enabled: false },
-    rotate: { enabled: false }
-  }; */
   buildHammer(element: HTMLElement) {
-    const mc = new Hammer(element, {
+    let mc = new Hammer(element, {
       touchAction: 'pan-y'
     });
     return mc;
@@ -66,11 +66,17 @@ export class HammerConfig extends HammerGestureConfig {
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     EmentasService,
-    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-PT' },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

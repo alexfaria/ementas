@@ -19,13 +19,17 @@ export class Diaria implements Deserializable {
     return this.data.toLocaleDateString('pt-PT', options);
   }
 
+  isSameDay(date: Date) {
+    return (
+      date.getFullYear() === this.data.getFullYear() &&
+      date.getMonth() === this.data.getMonth() &&
+      date.getDate() === this.data.getDate()
+    );
+  }
+
   isToday() {
     const today = new Date();
-    return (
-      today.getFullYear() === this.data.getFullYear() &&
-      today.getMonth() === this.data.getMonth() &&
-      today.getDate() === this.data.getDate()
-    );
+    return this.isSameDay(today);
   }
 
   deserialize(json: any) {

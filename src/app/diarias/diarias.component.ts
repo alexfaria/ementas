@@ -3,10 +3,42 @@ import { EmentasService } from '../ementas.service';
 
 import { Diaria } from '../models';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-diarias',
   templateUrl: './diarias.component.html',
-  styleUrls: ['./diarias.component.css']
+  styleUrls: ['./diarias.component.css'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state(
+        'open',
+        style({
+          height: '200px',
+          opacity: 1,
+          backgroundColor: 'yellow'
+        })
+      ),
+      state(
+        'closed',
+        style({
+          height: '100px',
+          opacity: 0.5,
+          backgroundColor: 'green'
+        })
+      ),
+      transition('open => closed', [animate('1s')]),
+      transition('closed => open', [animate('0.5s')])
+    ])
+  ]
 })
 export class DiariasComponent implements OnInit {
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
@@ -29,6 +61,16 @@ export class DiariasComponent implements OnInit {
       }
       this.loading = false;
     });
+  }
+
+  updateDiaria(event) {
+    this.atual = this.diarias.find(diaria => diaria.isSameDay(event.value));
+    this.currentId = this.atual.id;
+  }
+
+  goToToday() {
+    this.atual = this.diarias.find(diaria => diaria.isToday());
+    this.currentId = this.atual.id;
   }
 
   swipeRight() {

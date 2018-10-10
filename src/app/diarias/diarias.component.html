@@ -3,7 +3,6 @@
 </div>
 
 <ng-container *ngIf="!loading">
-
 	<mat-grid-list cols="12" rowHeight="5em">
 		<mat-grid-tile colspan="2" rowspan="1">
 			<button mat-icon-button (click)="swipeLeft()">
@@ -11,7 +10,30 @@
 			</button>
 		</mat-grid-tile>
 		<mat-grid-tile colspan="8" rowspan="1">
-			{{atual.fmtDataShort()}}
+			<!--
+			<mat-form-field>
+				<input disabled type="hidden" matInput [matDatepicker]="picker" [value]="atual.data" [min]="diarias[0].data"
+				 [max]="diarias[diarias.length-1].data" (dateChange)="updateDiaria($event)">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker disabled=false #picker startView="month" [startAt]="atual.data"></mat-datepicker>
+			</mat-form-field>
+			-->
+
+			<button mat-button (click)="goToToday()" matTooltip="Ir para a ementa de hoje">
+				{{atual.fmtDataShort()}}
+			</button>
+			<button mat-icon-button (click)="picker.open()">
+				<mat-icon>today</mat-icon>
+			</button>
+
+			<input type="hidden" [matDatepicker]="picker" [value]="atual.data" [min]="diarias[0].data" [max]="diarias[diarias.length-1].data"
+			 (dateChange)="updateDiaria($event)">
+			<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+			<mat-datepicker touchUi #picker startView="month" [startAt]="atual.data"></mat-datepicker>
+
+			<!--
+				{{atual.fmtDataShort()}}
+			-->
 		</mat-grid-tile>
 		<mat-grid-tile colspan="2" rowspan="1">
 			<button mat-icon-button (click)="swipeRight()">
