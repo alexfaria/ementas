@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiariaDetailComponent } from './diaria-detail/diaria-detail.component';
 import { DiariasComponent } from './diarias/diarias.component';
 import { EmentasService } from './ementas.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -49,10 +47,9 @@ export class HammerConfig extends HammerGestureConfig {
 }
 
 @NgModule({
-  declarations: [AppComponent, DiariaDetailComponent, DiariasComponent],
+  declarations: [AppComponent, DiariasComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
