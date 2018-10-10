@@ -5,8 +5,9 @@ import { DiariasComponent } from './diarias/diarias.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'diarias', pathMatch: 'full' },
-  { path: 'diaria/:id', component: DiariaDetailComponent },
-  { path: 'diarias', component: DiariasComponent }
+  /* { path: 'diaria/:id', component: DiariaDetailComponent }, */
+  { path: 'diarias', component: DiariasComponent },
+  { path: '**', redirectTo: 'diarias'}
 ];
 
 @NgModule({

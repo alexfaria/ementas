@@ -13,7 +13,9 @@
         ],
         "urls": [
           "https://fonts.googleapis.com/css?family=Roboto:300,400,500",
-          "https://fonts.googleapis.com/icon?family=Material+Icons"
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js",
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
         ]
       }
     }, {

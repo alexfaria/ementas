@@ -1,7 +1,99 @@
+<!--
+	<mat-nav-list>
+		<mat-list-item routerLink="/diaria/{{diaria.id}}" *ngFor="let diaria of diarias"> {{diaria.fmtData()}} </mat-list-item>
+	</mat-nav-list>
+-->
 <div class="wrapper" *ngIf="loading">
 	<mat-spinner mode="indeterminate"> </mat-spinner>
 </div>
 
-<mat-nav-list>
-	<mat-list-item routerLink="/diaria/{{diaria.id}}" *ngFor="let diaria of diarias"> {{diaria.fmtData()}} </mat-list-item>
-</mat-nav-list>
+<ng-container *ngIf="!loading">
+
+	<mat-grid-list cols="12" rowHeight="5em">
+		<mat-grid-tile colspan="2" rowspan="1">
+			<button mat-icon-button (click)="swipeLeft()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="8" rowspan="1">
+			{{atual.fmtDataShort()}}
+			<!--
+				<button mat-raised-button></button>
+			-->
+			<!--
+
+				<mat-form-field>
+					<input matInput [matDatepicker]="dp" placeholder="Month and Year" [formControl]="date">
+					<mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+					<mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)"
+					panelClass="example-month-picker">
+				</mat-datepicker>
+			</mat-form-field>
+		-->
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2" rowspan="1">
+			<button mat-icon-button (click)="swipeRight()">
+				<mat-icon>arrow_forward</mat-icon>
+			</button>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<ng-container *ngFor="let diaria of diarias; let idx = index">
+		<mat-list *ngIf="diaria.id == currentId" (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)">
+			<h3 mat-subheader>Almoço</h3>
+			<mat-list-item *ngFor="let prato of diaria.almoco.pratos">
+				<mat-icon mat-list-icon>fastfood</mat-icon>
+				<h4 mat-line>{{prato.nome}}</h4>
+				<p mat-line> {{prato.calorias | number : '1.0-0'}} KCal</p>
+			</mat-list-item>
+
+			<mat-divider></mat-divider>
+
+			<h3 mat-subheader>Jantar</h3>
+			<mat-list-item *ngFor="let prato of diaria.jantar.pratos">
+				<mat-icon mat-list-icon>fastfood</mat-icon>
+				<h4 mat-line>{{prato.nome}}</h4>
+				<p mat-line> {{prato.calorias | number : '1.0-0'}} KCal</p>
+			</mat-list-item>
+		</mat-list>
+	</ng-container>
+
+	<!-- Using Expansion panels
+	<ng-container *ngFor="let diaria of diarias; let idx = index">
+
+		<mat-card *ngIf="diaria.id == currentId" (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)">
+			<mat-card-header>
+				<mat-card-title>{{diaria.fmtData()}}</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-accordion>
+					<mat-expansion-panel expanded=true>
+						<mat-expansion-panel-header>
+							Almoço
+						</mat-expansion-panel-header>
+						<mat-expansion-panel *ngFor="let prato of diaria.almoco.pratos">
+							<mat-expansion-panel-header>
+								{{prato.tipo}}
+							</mat-expansion-panel-header>
+							{{prato.nome}}
+						</mat-expansion-panel>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							Jantar
+						</mat-expansion-panel-header>
+						<mat-expansion-panel *ngFor="let prato of diaria.jantar.pratos">
+							<mat-expansion-panel-header>
+								{{prato.tipo}}
+							</mat-expansion-panel-header>
+							{{prato.nome}}
+						</mat-expansion-panel>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</mat-card-content>
+		</mat-card>
+
+	</ng-container>
+	-->
+</ng-container>
