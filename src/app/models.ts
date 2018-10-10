@@ -14,12 +14,35 @@ export class Diaria implements Deserializable {
     return this.data.toLocaleDateString('pt-PT', options);
   }
 
+  fmtDataShort(): String {
+    const options = { month: 'long', day: 'numeric' };
+    return this.data.toLocaleDateString('pt-PT', options);
+  }
+
+  isToday() {
+    const today = new Date();
+    return (
+      today.getFullYear() === this.data.getFullYear() &&
+      today.getMonth() === this.data.getMonth() &&
+      today.getDate() === this.data.getDate()
+    );
+  }
+
   deserialize(json: any) {
     this.data = new Date(json.Data);
     this.observacoes = json.Observacoes;
     this.almoco = new Ementa().deserialize(json.TiposRefeicao[0]);
     this.jantar = new Ementa().deserialize(json.TiposRefeicao[1]);
-    this.id = ++Diaria.idCounter;
+    this.id = Diaria.idCounter++;
+    return this;
+  }
+
+  fromJson(json: any) {
+    this.data = new Date(json.data);
+    this.observacoes = json.observacoes;
+    this.almoco = new Ementa().fromJson(json.almoco);
+    this.jantar = new Ementa().fromJson(json.jantar);
+    this.id = Diaria.idCounter++;
     return this;
   }
 }
@@ -38,6 +61,16 @@ export class Ementa implements Deserializable {
     }
     return this;
   }
+
+  fromJson(json: any) {
+    this.info = json.info;
+    this.tipo = json.tipo;
+    this.pratos = [];
+    for (let i in json.pratos) {
+      this.pratos.push(new Prato().fromJson(json.pratos[i]));
+    }
+    return this;
+  }
 }
 
 export class Prato implements Deserializable {
@@ -51,6 +84,14 @@ export class Prato implements Deserializable {
     this.tipo = json.Descricao;
     this.alergenos = json.Alergenos;
     this.calorias = json.ValorCalorico;
+    return this;
+  }
+
+  fromJson(json: any) {
+    this.nome = json.nome;
+    this.tipo = json.tipo;
+    this.alergenos = json.alergenos;
+    this.calorias = json.calorias;
     return this;
   }
 }

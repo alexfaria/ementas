@@ -30,9 +30,21 @@ export class EmentasService {
   }
 
   getDiaria(id: number) {
-    if (localStorage.getItem('diarias')) {
-      this.diarias = JSON.parse(localStorage.getItem('diarias'));
+    if (this.diarias) {
       return this.diarias.find(diaria => diaria.id == id);
     }
+    if (this.fromLocalStorage()) {
+      return this.diarias.find(diaria => diaria.id == id);
+    }
+  }
+
+  fromLocalStorage() {
+    const json = JSON.parse(localStorage.getItem('diarias'));
+    if (!json) return false;
+    this.diarias = [];
+    for (let i in json) {
+      this.diarias.push(new Diaria().fromJson(json[i]));
+    }
+    return true;
   }
 }

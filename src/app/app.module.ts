@@ -18,8 +18,35 @@ import {
   MatExpansionModule,
   MatButtonModule,
   MatIconModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatCardModule,
+  MatGridListModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatBadgeModule
 } from '@angular/material';
+
+import {
+  HammerGestureConfig,
+  HAMMER_GESTURE_CONFIG
+} from '@angular/platform-browser';
+
+import * as Hammer from 'hammerjs';
+
+export class HammerConfig extends HammerGestureConfig {
+  /* overrides = <any>{
+    // swipe: { velocity: 0.4, threshold: 20 },
+    // pan: { direction: 6 },
+    pinch: { enabled: false },
+    rotate: { enabled: false }
+  }; */
+  buildHammer(element: HTMLElement) {
+    const mc = new Hammer(element, {
+      touchAction: 'pan-y'
+    });
+    return mc;
+  }
+}
 
 @NgModule({
   declarations: [AppComponent, DiariaDetailComponent, DiariasComponent],
@@ -37,9 +64,17 @@ import {
     MatExpansionModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatBadgeModule
   ],
-  providers: [EmentasService],
+  providers: [
+    EmentasService,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

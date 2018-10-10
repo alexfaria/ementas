@@ -21,7 +21,6 @@ export class DiariaDetailComponent implements OnInit {
   diaria: Diaria;
 
   ngOnInit(): void {
-    console.log('ngoninit diaria-detail');
     this.getDiaria();
   }
 
