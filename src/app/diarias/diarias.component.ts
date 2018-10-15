@@ -10,7 +10,6 @@ import {
   animate,
   transition
 } from '@angular/animations';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-diarias',
