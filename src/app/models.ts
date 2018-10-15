@@ -1,4 +1,6 @@
-import { Deserializable } from './deserializable.model';
+interface Deserializable {
+	deserialize(input: any): this;
+}
 
 export class Diaria implements Deserializable {
   id: number;
