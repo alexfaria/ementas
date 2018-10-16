@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DiariasComponent } from './diarias/diarias.component';
 import { EmentasService } from './ementas.service';
+import { SettingsService } from './settings.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +25,8 @@ import {
   MatBadgeModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
   MAT_DATE_LOCALE
 } from '@angular/material';
 
@@ -68,10 +71,13 @@ export class HammerConfig extends HammerGestureConfig {
     MatNativeDateModule,
     MatBadgeModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSidenavModule,
+    MatSlideToggleModule
   ],
   providers: [
     EmentasService,
+    SettingsService,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-PT' },
     {
       provide: HAMMER_GESTURE_CONFIG,

@@ -1,5 +1,6 @@
 interface Deserializable {
-	deserialize(input: any): this;
+  deserialize(input: any): this;
+  fromJson(json: any): this;
 }
 
 export class Diaria implements Deserializable {
@@ -60,7 +61,7 @@ export class Ementa implements Deserializable {
 
   deserialize(json: any) {
     this.info = json.InfoAdicional;
-    this.tipo = json.Descricao;
+    this.tipo = json.Descricao == 'Jantar' ? 'jantar' : 'almoco';
     this.pratos = [];
     for (let i in json.TiposPrato) {
       this.pratos.push(new Prato().deserialize(json.TiposPrato[i]));
@@ -87,7 +88,7 @@ export class Prato implements Deserializable {
 
   deserialize(json: any) {
     this.nome = json.Nome;
-    this.tipo = json.Descricao;
+    this.tipo = json.Descricao.toLowerCase();
     this.alergenos = json.Alergenos;
     this.calorias = json.ValorCalorico;
     return this;

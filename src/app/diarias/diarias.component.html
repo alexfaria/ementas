@@ -33,7 +33,7 @@
 		<mat-list *ngIf="diaria.id == currentId" (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)">
 			<h3 mat-subheader>Almoço</h3>
 			<mat-list-item *ngFor="let prato of diaria.almoco.pratos">
-				<mat-icon mat-list-icon>fastfood</mat-icon>
+				<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
 				<h4 mat-line>{{prato.nome}}</h4>
 				<p mat-line> {{prato.calorias | number : '1.0-0'}} KCal</p>
 			</mat-list-item>
@@ -42,7 +42,7 @@
 
 			<h3 mat-subheader>Jantar</h3>
 			<mat-list-item *ngFor="let prato of diaria.jantar.pratos">
-				<mat-icon mat-list-icon>fastfood</mat-icon>
+				<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
 				<h4 mat-line>{{prato.nome}}</h4>
 				<p mat-line> {{prato.calorias | number : '1.0-0'}} KCal</p>
 			</mat-list-item>
