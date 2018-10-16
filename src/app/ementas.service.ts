@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Diaria } from './models';
 
@@ -14,6 +15,10 @@ export class EmentasService {
   getEmentas() {
     const apiUrl: string =
       'https://portaldossas.uc.pt/PySiges/services/signetpos/get_ementas.json?Lang=PT';
+
+    if (this.fromLocalStorage()) {
+      return of(this.diarias);
+    }
 
     return this.http.get(apiUrl).pipe(
       map(data => {

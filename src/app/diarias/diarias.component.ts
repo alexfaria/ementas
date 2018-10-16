@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { EmentasService } from '../ementas.service';
-
 import { Diaria } from '../models';
 
 import {
@@ -46,7 +47,48 @@ export class DiariasComponent implements OnInit {
   currentId: number;
   atual: Diaria;
 
-  constructor(private ementasService: EmentasService) {}
+  constructor(
+    private ementasService: EmentasService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'peixe',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/peixe.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'sopa',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/sopa.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'carne',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/carne.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'vegetariano',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/vegetariano.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'dieta',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/dieta.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'menu',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/menu.svg'
+      )
+    );
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -73,19 +115,14 @@ export class DiariasComponent implements OnInit {
   }
 
   swipeRight() {
-    // previous
-
     const isLast = this.currentId === this.diarias.length - 1;
     this.currentId = isLast ? 0 : this.currentId + 1;
-
     this.atual = this.diarias[this.currentId];
   }
 
   swipeLeft() {
-    // next
     const isFirst = this.currentId === 0;
     this.currentId = isFirst ? this.diarias.length - 1 : this.currentId - 1;
-
     this.atual = this.diarias[this.currentId];
   }
 
