@@ -55,37 +55,37 @@ export class DiariasComponent implements OnInit {
     this.matIconRegistry.addSvgIcon(
       'peixe',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/peixe.svg'
+        '../ementas/assets/icons/peixe.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'sopa',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/sopa.svg'
+        '../ementas/assets/icons/sopa.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'carne',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/carne.svg'
+        '../ementas/assets/icons/carne.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'vegetariano',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/vegetariano.svg'
+        '../ementas/assets/icons/vegetariano.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'dieta',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/dieta.svg'
+        '../ementas/assets/icons/dieta.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'menu',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/menu.svg'
+        '../ementas/assets/icons/menu.svg'
       )
     );
   }
