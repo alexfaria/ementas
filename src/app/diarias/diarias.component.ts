@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 import { EmentasService } from '../ementas.service';
 import { Diaria } from '../models';
 
@@ -55,37 +56,37 @@ export class DiariasComponent implements OnInit {
     this.matIconRegistry.addSvgIcon(
       'peixe',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/peixe.svg'
+        environment.assetsPath + 'icons/peixe.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'sopa',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/sopa.svg'
+        environment.assetsPath + 'icons/sopa.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'carne',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/carne.svg'
+        environment.assetsPath + 'icons/carne.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'vegetariano',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/vegetariano.svg'
+        environment.assetsPath + 'icons/vegetariano.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'dieta',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/dieta.svg'
+        environment.assetsPath + 'icons/dieta.svg'
       )
     );
     this.matIconRegistry.addSvgIcon(
       'menu',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../ementas/assets/icons/menu.svg'
+        environment.assetsPath + 'icons/menu.svg'
       )
     );
   }
