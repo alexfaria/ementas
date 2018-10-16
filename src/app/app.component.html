@@ -5,18 +5,25 @@
 				<mat-toolbar-row>
 					<span>Ementas UC</span>
 					<span class="example-spacer"></span>
-
 					<button mat-icon-button [matMenuTriggerFor]="menu">
 						<mat-icon>more_vert</mat-icon>
 					</button>
 					<mat-menu #menu="matMenu">
+						<span mat-menu-item>
+							<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">Modo Noturno</mat-slide-toggle>
+						</span>
 						<button mat-menu-item (click)="refresh()">
 							<mat-icon>refresh</mat-icon>
 							<span>Refresh</span>
 						</button>
-						<span mat-menu-item>
-							<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">Dark theme</mat-slide-toggle>
-						</span>
+						<button disabled mat-menu-item [matMenuTriggerFor]="languages">
+							<mat-icon>language</mat-icon>
+							<span>Idioma</span>
+						</button>
+						<mat-menu #languages="matMenu">
+							<button mat-menu-item (click)="changeToPT()">PT</button>
+							<button mat-menu-item (click)="changeToEN()">EN</button>
+						</mat-menu>
 					</mat-menu>
 				</mat-toolbar-row>
 			</mat-toolbar>
