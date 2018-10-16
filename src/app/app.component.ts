@@ -22,4 +22,8 @@ export class AppComponent implements OnInit {
   refresh() {
     window.location.reload();
   }
+
+  changeToPT(){}
+
+  changeToEN(){}
 }
