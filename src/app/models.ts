@@ -87,9 +87,14 @@ export class Prato implements Deserializable {
   alergenos: string[];
 
   deserialize(json: any) {
+    let alergenos = json.Alergenos.replace(/\-/g, "").split(",");
+    for(let i in alergenos) {
+      alergenos[i] = alergenos[i].trim().toLowerCase();
+    }
+    alergenos = alergenos.filter(Boolean);
     this.nome = json.Nome;
     this.tipo = json.Descricao.toLowerCase();
-    this.alergenos = json.Alergenos;
+    this.alergenos = alergenos;
     this.calorias = json.ValorCalorico;
     return this;
   }
