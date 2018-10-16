@@ -18,4 +18,8 @@ export class AppComponent implements OnInit {
     this.darkMode = !this.darkMode;
     this.settings.set('darkMode', this.darkMode);
   }
+
+  refresh() {
+    window.location.reload();
+  }
 }

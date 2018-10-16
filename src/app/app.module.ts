@@ -27,6 +27,7 @@ import {
   MatInputModule,
   MatSidenavModule,
   MatSlideToggleModule,
+  MatMenuModule,
   MAT_DATE_LOCALE
 } from '@angular/material';
 
@@ -73,7 +74,8 @@ export class HammerConfig extends HammerGestureConfig {
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatMenuModule
   ],
   providers: [
     EmentasService,
