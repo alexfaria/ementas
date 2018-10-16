@@ -1,45 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material';
 import { environment } from '../../environments/environment';
 import { EmentasService } from '../ementas.service';
 import { Diaria } from '../models';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
-
 @Component({
   selector: 'app-diarias',
   templateUrl: './diarias.component.html',
-  styleUrls: ['./diarias.component.css'],
-  animations: [
-    trigger('openClose', [
-      // ...
-      state(
-        'open',
-        style({
-          height: '200px',
-          opacity: 1,
-          backgroundColor: 'yellow'
-        })
-      ),
-      state(
-        'closed',
-        style({
-          height: '100px',
-          opacity: 0.5,
-          backgroundColor: 'green'
-        })
-      ),
-      transition('open => closed', [animate('1s')]),
-      transition('closed => open', [animate('0.5s')])
-    ])
-  ]
+  styleUrls: ['./diarias.component.css']
 })
 export class DiariasComponent implements OnInit {
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
@@ -51,7 +21,8 @@ export class DiariasComponent implements OnInit {
   constructor(
     private ementasService: EmentasService,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    public snackBar: MatSnackBar
   ) {
     this.matIconRegistry.addSvgIcon(
       'peixe',
@@ -84,9 +55,9 @@ export class DiariasComponent implements OnInit {
       )
     );
     this.matIconRegistry.addSvgIcon(
-      'menu',
+      'info',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/menu.svg'
+        environment.assetsPath + 'icons/info.svg'
       )
     );
   }
@@ -102,6 +73,14 @@ export class DiariasComponent implements OnInit {
         }
       }
       this.loading = false;
+    });
+  }
+
+  showAllergens(allergens) {
+    const string = 'Alérgenos: ' + allergens.join(', ');
+    this.snackBar.open(string, null, {
+      duration: 2000,
+      verticalPosition: 'top',
     });
   }
 
