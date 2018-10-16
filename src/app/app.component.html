@@ -1,25 +1,23 @@
 <div [class.dark-theme]="darkMode">
-	<mat-sidenav-container class="example-container">
-		<mat-sidenav #sidenav mode="over">
-			<mat-toolbar color="primary">
-				<mat-toolbar-row>
-					Settings
-				</mat-toolbar-row>
-				<mat-toolbar-row>
-					<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">Dark theme</mat-slide-toggle>
-				</mat-toolbar-row>
-			</mat-toolbar>
-		</mat-sidenav>
-
+	<mat-sidenav-container>
 		<mat-sidenav-content>
 			<mat-toolbar>
 				<mat-toolbar-row>
-					<button mat-icon-button (click)="sidenav.toggle()">
-						<mat-icon>menu</mat-icon>
-					</button>
 					<span>Ementas UC</span>
-					<!-- <span class="example-spacer"></span>
-					<mat-icon svgIcon="menu"></mat-icon> -->
+					<span class="example-spacer"></span>
+
+					<button mat-icon-button [matMenuTriggerFor]="menu">
+						<mat-icon>more_vert</mat-icon>
+					</button>
+					<mat-menu #menu="matMenu">
+						<button mat-menu-item (click)="refresh()">
+							<mat-icon>refresh</mat-icon>
+							<span>Refresh</span>
+						</button>
+						<span mat-menu-item>
+							<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">Dark theme</mat-slide-toggle>
+						</span>
+					</mat-menu>
 				</mat-toolbar-row>
 			</mat-toolbar>
 			<app-diarias></app-diarias>
