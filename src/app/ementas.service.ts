@@ -17,10 +17,6 @@ export class EmentasService {
       'https://portaldossas.uc.pt/PySiges/services/signetpos/get_ementas.json?Lang=' +
       language.toUpperCase();
 
-    if (this.fromLocalStorage()) {
-      return of(this.diarias);
-    }
-
     return this.http.get(apiUrl).pipe(
       map(data => {
         this.diarias = [];
@@ -35,7 +31,7 @@ export class EmentasService {
     );
   }
 
-  fromLocalStorage() {
+  private fromLocalStorage() {
     const json = JSON.parse(localStorage.getItem('diarias'));
     if (!json) return false;
     this.diarias = [];
