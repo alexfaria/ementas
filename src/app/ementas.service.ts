@@ -12,9 +12,10 @@ export class EmentasService {
 
   constructor(private http: HttpClient) {}
 
-  getEmentas() {
+  getEmentas(language: string) {
     const apiUrl: string =
-      'https://portaldossas.uc.pt/PySiges/services/signetpos/get_ementas.json?Lang=PT';
+      'https://portaldossas.uc.pt/PySiges/services/signetpos/get_ementas.json?Lang=' +
+      language.toUpperCase();
 
     if (this.fromLocalStorage()) {
       return of(this.diarias);
