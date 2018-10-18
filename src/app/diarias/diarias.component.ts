@@ -1,125 +1,157 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material';
 import { environment } from '../../environments/environment';
 import { EmentasService } from '../ementas.service';
+import { SettingsService } from '../settings.service';
+import { trigger, transition, animate, style } from '@angular/animations';
 import { Diaria } from '../models';
+import { strings } from '../strings';
 
 @Component({
   selector: 'app-diarias',
   templateUrl: './diarias.component.html',
-  styleUrls: ['./diarias.component.css']
+  styleUrls: ['./diarias.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('500ms ease-in', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0%)' }),
+        animate('0.2s ease-in-out', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class DiariasComponent implements OnInit {
+  readonly strings = strings;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   diarias: Diaria[];
   loading: boolean;
-  currentId: number;
+  index: number;
   atual: Diaria;
+  language: string;
 
   constructor(
     private ementasService: EmentasService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private settings: SettingsService
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'peixe',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/peixe.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'sopa',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/sopa.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'carne',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/carne.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'vegetariano',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/vegetariano.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'dieta',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/dieta.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'info',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        environment.assetsPath + 'icons/info.svg'
-      )
-    );
+    this.settings.currentLanguage.subscribe(language => {
+      if (this.language != language) {
+        this.language = language;
+        this.getEmentas();
+      }
+    });
+    this.registerIcons();
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.ementasService.getEmentas().subscribe((diarias: Diaria[]) => {
-      this.diarias = diarias;
-      for (let i in this.diarias) {
-        if (this.diarias[i].isToday()) {
-          this.currentId = this.diarias[i].id;
-          this.atual = this.diarias[i];
+    // this.getEmentas();
+  }
+
+  getEmentas() {
+    this.loading = true;
+    this.ementasService
+      .getEmentas(this.language)
+      .subscribe((diarias: Diaria[]) => {
+        this.diarias = diarias;
+        for (let i in this.diarias) {
+          if (this.diarias[i].isToday()) {
+            this.index = parseInt(i);
+            this.atual = this.diarias[i];
+          }
         }
-      }
-      this.loading = false;
-    });
+        this.loading = false;
+      });
   }
 
   showAllergens(allergens) {
-    const string = 'Alérgenos: ' + allergens.join(', ');
+    const string =
+      strings.allergens[this.language] + ': ' + allergens.join(', ');
     this.snackBar.open(string, null, {
       duration: 2000,
-      verticalPosition: 'top',
+      verticalPosition: 'top'
     });
   }
 
   updateDiaria(event) {
-    this.atual = this.diarias.find(diaria => diaria.isSameDay(event.value));
-    this.currentId = this.atual.id;
+    for (let i in this.diarias) {
+      if (this.diarias[i].isSameDay(event.value)) {
+        this.atual = this.diarias[i];
+        this.index = parseInt(i);
+      }
+    }
   }
 
   goToToday() {
-    this.atual = this.diarias.find(diaria => diaria.isToday());
-    this.currentId = this.atual.id;
-  }
-
-  swipeRight() {
-    const isLast = this.currentId === this.diarias.length - 1;
-    this.currentId = isLast ? 0 : this.currentId + 1;
-    this.atual = this.diarias[this.currentId];
+    for (let i in this.diarias) {
+      if (this.diarias[i].isToday()) {
+        this.atual = this.diarias[i];
+        this.index = parseInt(i);
+      }
+    }
   }
 
   swipeLeft() {
-    const isFirst = this.currentId === 0;
-    this.currentId = isFirst ? this.diarias.length - 1 : this.currentId - 1;
-    this.atual = this.diarias[this.currentId];
+    const isLast = this.index === this.diarias.length - 1;
+    this.index = isLast ? this.index : this.index + 1;
+    this.atual = this.diarias[this.index];
   }
 
-  swipe(currentIndex: number, action: string = this.SWIPE_ACTION.RIGHT) {
-    if (currentIndex > this.diarias.length || currentIndex < 0) return;
+  swipeRight() {
+    const isFirst = this.index === 0;
+    this.index = isFirst ? this.index : this.index - 1;
+    this.atual = this.diarias[this.index];
+  }
 
-    // next
-    if (action === this.SWIPE_ACTION.LEFT) {
-      const isLast = currentIndex === this.diarias.length - 1;
-      this.currentId = isLast ? 0 : currentIndex + 1;
-    }
+  registerIcons() {
+    const icons = [
+      {
+        name: 'peixe',
+        alternateName: 'fish'
+      },
+      {
+        name: 'sopa',
+        alternateName: 'soup'
+      },
+      {
+        name: 'carne',
+        alternateName: 'meat'
+      },
+      {
+        name: 'dieta',
+        alternateName: 'diet'
+      },
+      {
+        name: 'vegetariano',
+        alternateName: 'vegetarian'
+      },
+      {
+        name: 'info',
+        alternateName: 'info_material'
+      }
+    ];
 
-    // previous
-    if (action === this.SWIPE_ACTION.RIGHT) {
-      const isFirst = currentIndex === 0;
-      this.currentId = isFirst ? this.diarias.length - 1 : currentIndex - 1;
+    for (let i in icons) {
+      this.matIconRegistry.addSvgIcon(
+        icons[i].name,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          `${environment.assetsPath}icons/${icons[i].name}.svg`
+        )
+      );
+      this.matIconRegistry.addSvgIcon(
+        icons[i].alternateName,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          `${environment.assetsPath}icons/${icons[i].name}.svg`
+        )
+      );
     }
-    this.atual = this.diarias[this.currentId];
   }
 }

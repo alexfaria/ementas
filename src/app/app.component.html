@@ -2,7 +2,7 @@
 	<mat-sidenav-container>
 		<mat-sidenav-content>
 			<mat-toolbar>
-				<mat-toolbar-row>
+				<mat-toolbar-row class="container">
 					<span>Ementas UC</span>
 					<span class="example-spacer"></span>
 					<button mat-icon-button [matMenuTriggerFor]="menu">
@@ -10,24 +10,26 @@
 					</button>
 					<mat-menu #menu="matMenu">
 						<span mat-menu-item>
-							<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">Modo Noturno</mat-slide-toggle>
+							<mat-slide-toggle [checked]="darkMode" (change)="toggleTheme()">{{strings.darkMode[language]}}</mat-slide-toggle>
 						</span>
 						<button mat-menu-item (click)="refresh()">
 							<mat-icon>refresh</mat-icon>
-							<span>Refresh</span>
+							<span>{{strings.refresh[language]}}</span>
 						</button>
-						<button disabled mat-menu-item [matMenuTriggerFor]="languages">
+						<button mat-menu-item [matMenuTriggerFor]="languages">
 							<mat-icon>language</mat-icon>
-							<span>Idioma</span>
+							<span>{{strings.language[language]}}</span>
 						</button>
 						<mat-menu #languages="matMenu">
-							<button mat-menu-item (click)="changeToPT()">PT</button>
-							<button mat-menu-item (click)="changeToEN()">EN</button>
+							<button mat-menu-item (click)="changeLanguage('pt')">PT</button>
+							<button mat-menu-item (click)="changeLanguage('en')">EN</button>
 						</mat-menu>
 					</mat-menu>
 				</mat-toolbar-row>
 			</mat-toolbar>
-			<app-diarias></app-diarias>
+			<div class="container">
+				<app-diarias></app-diarias>
+			</div>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from './settings.service';
+import { DateAdapter } from '@angular/material';
+import { strings } from './strings';
 
 @Component({
   selector: 'app-root',
@@ -7,23 +9,32 @@ import { SettingsService } from './settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private settings: SettingsService) {}
-  darkMode: boolean = false;
+  readonly strings = strings;
+  darkMode: boolean;
+  language: string;
+
+  constructor(
+    private settings: SettingsService,
+    private adapter: DateAdapter<any>
+  ) {}
 
   ngOnInit(): void {
-    this.darkMode = this.settings.get('darkMode');
+    this.settings.currentLanguage.subscribe(lang => (this.language = lang));
+    this.settings.currentDarkMode.subscribe(darkMode => {
+      this.darkMode = darkMode;
+    });
   }
 
   toggleTheme(): void {
-    this.darkMode = !this.darkMode;
-    this.settings.set('darkMode', this.darkMode);
+    this.settings.changeDarkMode(!this.darkMode);
   }
 
   refresh() {
     window.location.reload();
   }
 
-  changeToPT(){}
-
-  changeToEN(){}
+  changeLanguage(language: string) {
+    this.settings.changeLanguage(language);
+    this.adapter.setLocale(language);
+  }
 }

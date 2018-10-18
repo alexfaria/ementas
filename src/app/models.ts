@@ -11,15 +11,15 @@ export class Diaria implements Deserializable {
   data: Date;
   static idCounter = 0;
 
-  fmtData(): String {
+  fmtData(locale: string): String {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
     const options = { weekday: 'short', month: 'long', day: 'numeric' };
-    return this.data.toLocaleDateString('pt-PT', options);
+    return this.data.toLocaleDateString(locale, options);
   }
 
-  fmtDataShort(): String {
+  fmtDataShort(locale: string): String {
     const options = { month: 'long', day: 'numeric' };
-    return this.data.toLocaleDateString('pt-PT', options);
+    return this.data.toLocaleDateString(locale, options);
   }
 
   isSameDay(date: Date) {
@@ -87,13 +87,13 @@ export class Prato implements Deserializable {
   alergenos: string[];
 
   deserialize(json: any) {
-    let alergenos = json.Alergenos.replace(/\-/g, "").split(",");
-    for(let i in alergenos) {
+    let alergenos = json.Alergenos.replace(/\-/g, '').split(',');
+    for (let i in alergenos) {
       alergenos[i] = alergenos[i].trim().toLowerCase();
     }
     alergenos = alergenos.filter(Boolean);
     this.nome = json.Nome;
-    this.tipo = json.Descricao.toLowerCase();
+    this.tipo = json.Descricao.toLowerCase().split(' - ')[0];
     this.alergenos = alergenos;
     this.calorias = json.ValorCalorico;
     return this;
