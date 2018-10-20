@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Diaria } from './models';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,7 @@ export class EmentasService {
   constructor(private http: HttpClient) {}
 
   getEmentas(language: string) {
-    const apiUrl: string =
-      'https://portaldossas.uc.pt/PySiges/services/signetpos/get_ementas.json?Lang=' +
-      language.toUpperCase();
+    const apiUrl: string = environment.baseUrl + language.toUpperCase();
 
     return this.http.get(apiUrl).pipe(
       map(data => {
