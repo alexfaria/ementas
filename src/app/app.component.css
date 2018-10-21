@@ -6,3 +6,7 @@
   max-width: 786px;
   margin: auto;
 }
+
+mat-sidenav-container {
+  min-height: 100vh;
+}
