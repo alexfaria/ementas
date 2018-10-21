@@ -17,11 +17,11 @@ import { strings } from '../strings';
     trigger('slideInOut', [
       transition(':enter', [
         style({ transform: 'translateX(-100%)' }),
-        animate('500ms ease-in', style({ transform: 'translateX(0%)' }))
+        animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
       ]),
       transition(':leave', [
         style({ transform: 'translateX(0%)' }),
-        animate('0.2s ease-in-out', style({ transform: 'translateX(-100%)' }))
+        animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
       ])
     ])
   ]
