@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "ementas"
+  "defaultProject": "ementas",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }
