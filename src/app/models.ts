@@ -1,3 +1,5 @@
+import { strings } from './strings';
+
 interface Deserializable {
   deserialize(input: any): this;
   fromJson(json: any): this;
@@ -61,7 +63,7 @@ export class Ementa implements Deserializable {
 
   deserialize(json: any) {
     this.info = json.InfoAdicional;
-    this.tipo = json.Descricao == 'Jantar' ? 'jantar' : 'almoco';
+    this.tipo = json.Descricao.toLowerCase().replace(/ç/, 'c');
     this.pratos = [];
     for (let i in json.TiposPrato) {
       this.pratos.push(new Prato().deserialize(json.TiposPrato[i]));
@@ -87,13 +89,17 @@ export class Prato implements Deserializable {
   alergenos: string[];
 
   deserialize(json: any) {
-    let alergenos = json.Alergenos.replace(/\-/g, '').split(',');
+    let alergenos = json.Alergenos.replace(/-/g, '').split(',');
     for (let i in alergenos) {
       alergenos[i] = alergenos[i].trim().toLowerCase();
     }
     alergenos = alergenos.filter(Boolean);
     this.nome = json.Nome;
-    this.tipo = json.Descricao.toLowerCase().split(' - ')[0];
+    let tipo = json.Descricao.toLowerCase().split(' - ')[0];
+    if (tipo in strings.mealTypes) {
+      tipo = strings.mealTypes[tipo];
+    }
+    this.tipo = tipo;
     this.alergenos = alergenos;
     this.calorias = json.ValorCalorico;
     return this;

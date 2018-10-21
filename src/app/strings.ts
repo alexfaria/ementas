@@ -23,4 +23,11 @@ export const strings = {
     pt: 'Alérgenos',
     en: 'Allergens'
   },
+  mealTypes: {
+    fish: 'peixe',
+    meat: 'carne',
+    vegetarian: 'vegetariano',
+    soup: 'sopa',
+    diet: 'dieta'
+  }
 };
