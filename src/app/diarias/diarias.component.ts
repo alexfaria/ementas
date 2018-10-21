@@ -112,44 +112,13 @@ export class DiariasComponent implements OnInit {
   }
 
   registerIcons() {
-    const icons = [
-      {
-        name: 'peixe',
-        alternateName: 'fish'
-      },
-      {
-        name: 'sopa',
-        alternateName: 'soup'
-      },
-      {
-        name: 'carne',
-        alternateName: 'meat'
-      },
-      {
-        name: 'dieta',
-        alternateName: 'diet'
-      },
-      {
-        name: 'vegetariano',
-        alternateName: 'vegetarian'
-      },
-      {
-        name: 'info',
-        alternateName: 'info_material'
-      }
-    ];
+    const icons = ['peixe', 'sopa', 'carne', 'dieta', 'vegetariano', 'info'];
 
     for (let i in icons) {
       this.matIconRegistry.addSvgIcon(
-        icons[i].name,
+        icons[i],
         this.domSanitizer.bypassSecurityTrustResourceUrl(
-          `${environment.assetsPath}icons/${icons[i].name}.svg`
-        )
-      );
-      this.matIconRegistry.addSvgIcon(
-        icons[i].alternateName,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          `${environment.assetsPath}icons/${icons[i].name}.svg`
+          `${environment.assetsPath}icons/${icons[i]}.svg`
         )
       );
     }
