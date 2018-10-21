@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { DiariasComponent } from './diarias/diarias.component';
+import { BottomSheetComponent } from './diarias/bottomsheet.component';
 import { EmentasService } from './ementas.service';
 import { SettingsService } from './settings.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -29,7 +29,8 @@ import {
   MatSlideToggleModule,
   MatMenuModule,
   MatSnackBarModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatBottomSheetModule
 } from '@angular/material';
 
 /* Hammer Imports */
@@ -52,7 +53,8 @@ export class HammerConfig extends HammerGestureConfig {
 }
 
 @NgModule({
-  declarations: [AppComponent, DiariasComponent],
+  declarations: [AppComponent, DiariasComponent, BottomSheetComponent],
+  entryComponents: [BottomSheetComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -77,7 +79,8 @@ export class HammerConfig extends HammerGestureConfig {
     MatSidenavModule,
     MatSlideToggleModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBottomSheetModule
   ],
   providers: [
     EmentasService,

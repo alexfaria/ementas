@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
+import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry, MatSnackBar, MatBottomSheet } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatSnackBar } from '@angular/material';
+import { trigger, transition, animate, style } from '@angular/animations';
 import { environment } from '../../environments/environment';
 import { EmentasService } from '../ementas.service';
 import { SettingsService } from '../settings.service';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { BottomSheetComponent } from './bottomsheet.component';
 import { Diaria } from '../models';
 import { strings } from '../strings';
 
@@ -40,6 +40,7 @@ export class DiariasComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet,
     private settings: SettingsService
   ) {
     this.settings.currentLanguage.subscribe(language => {
@@ -78,6 +79,12 @@ export class DiariasComponent implements OnInit {
     this.snackBar.open(string, null, {
       duration: 2000,
       verticalPosition: 'top'
+    });
+  }
+
+  openBottomSheet(): void {
+    this.bottomSheet.open(BottomSheetComponent, {
+      data: this.atual['observacoes']
     });
   }
 
