@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DiariasComponent } from './diarias/diarias.component';
-import { BottomSheetComponent } from './diarias/bottomsheet.component';
+import { BottomSheetComponent } from './bottomsheet/bottomsheet.component';
 import { EmentasService } from './ementas.service';
 import { SettingsService } from './settings.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
