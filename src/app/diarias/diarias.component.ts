@@ -34,10 +34,11 @@ export class DiariasComponent implements OnInit {
   readonly strings = strings;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   diarias: Diaria[];
-  loading: boolean;
   index: number;
   atual: Diaria;
   language: string;
+  loading: boolean = true;
+  date: Date = new Date();
 
   constructor(
     private ementasService: EmentasService,
@@ -67,12 +68,20 @@ export class DiariasComponent implements OnInit {
       .getEmentas(this.language)
       .subscribe((diarias: Diaria[]) => {
         this.diarias = diarias;
-        for (let i in this.diarias) {
-          if (this.diarias[i].isToday()) {
-            this.index = parseInt(i);
-            this.atual = this.diarias[i];
+        let found;
+        do {
+          found = false;
+          for (let i = 0; i < this.diarias.length; i++) {
+            if (this.diarias[i].isSameDay(this.date)) {
+              this.index = i;
+              this.atual = this.diarias[i];
+              found = true;
+            }
           }
-        }
+          if (!found) {
+            this.date.setDate(this.date.getDate() + 1);
+          }
+        } while(!found);
         this.loading = false;
       });
   }
@@ -103,7 +112,7 @@ export class DiariasComponent implements OnInit {
 
   goToToday() {
     for (let i in this.diarias) {
-      if (this.diarias[i].isToday()) {
+      if (this.diarias[i].isSameDay(this.date)) {
         this.atual = this.diarias[i];
         this.index = parseInt(i);
       }
