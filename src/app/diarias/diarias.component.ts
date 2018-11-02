@@ -132,7 +132,7 @@ export class DiariasComponent implements OnInit {
   }
 
   registerIcons() {
-    const icons = ['peixe', 'sopa', 'carne', 'dieta', 'vegetariano', 'info'];
+    const icons = ['peixe', 'sopa', 'carne', 'dieta', 'vegetariano', 'info', 'logo'];
 
     for (let i in icons) {
       this.matIconRegistry.addSvgIcon(
