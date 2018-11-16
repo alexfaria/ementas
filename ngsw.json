@@ -1,0 +1,99 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/index.html",
+        "/main.92772ccbcc9c62db967b.js",
+        "/polyfills.38cfeb63b91a963d9fbf.js",
+        "/runtime.ec2944dd8b20ec099bf3.js",
+        "/styles.0f0756a797bd95c61eb5.css"
+      ],
+      "patterns": [
+        "https:\\/\\/fonts\\.googleapis\\.com\\/css\\?family=Roboto:300,400,500",
+        "https:\\/\\/fonts\\.googleapis\\.com\\/icon\\?family=Material\\+Icons"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/favicon/icon-128x128.png",
+        "/assets/favicon/icon-144x144.png",
+        "/assets/favicon/icon-152x152.png",
+        "/assets/favicon/icon-192x192.png",
+        "/assets/favicon/icon-384x384.png",
+        "/assets/favicon/icon-512x512.png",
+        "/assets/favicon/icon-72x72.png",
+        "/assets/favicon/icon-96x96.png",
+        "/assets/icons/carne.svg",
+        "/assets/icons/dieta.svg",
+        "/assets/icons/info.svg",
+        "/assets/icons/logo.svg",
+        "/assets/icons/peixe.svg",
+        "/assets/icons/sopa.svg",
+        "/assets/icons/vegetariano.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "patterns": [
+        "https:\\/\\/portaldossas\\.uc\\.pt\\/PySiges\\/services\\/signetpos\\/get_ementas\\.json\\?Lang=EN",
+        "https:\\/\\/portaldossas\\.uc\\.pt\\/PySiges\\/services\\/signetpos\\/get_ementas\\.json\\?Lang=PT"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 604800000,
+      "timeoutMs": 10000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/assets/favicon/icon-128x128.png": "aceda50be8dcaf3d2d21996e2da7d4b3028d58da",
+    "/assets/favicon/icon-144x144.png": "19e496386049eae77f762ca93daab1745d330696",
+    "/assets/favicon/icon-152x152.png": "ef8c55dcc1fa0d7a8689cb0e1dd3a9e1e50861e2",
+    "/assets/favicon/icon-192x192.png": "cffaafe8281b5226ea1ab4c55198ec69404a0565",
+    "/assets/favicon/icon-384x384.png": "1f3027a65a527dfd4630c8559ec96109e0f94533",
+    "/assets/favicon/icon-512x512.png": "6704eff221c7b7ef8779c2d0146bc9fff201bbc3",
+    "/assets/favicon/icon-72x72.png": "023366f9937b4a3b7bef6fb94a61580e5d22a0cd",
+    "/assets/favicon/icon-96x96.png": "8acb7e9eb77ff052a2e551d286f64c85992713ac",
+    "/assets/icons/carne.svg": "c61d2d23aa7fb280b7acd96fe6de936021714853",
+    "/assets/icons/dieta.svg": "ce7be3b9ec2dc55e6dd05fe0134a8462a536b0f7",
+    "/assets/icons/info.svg": "f99511dce77c06f0df085d6a84b831da3cde9e79",
+    "/assets/icons/logo.svg": "f37aa44dfd68ea1bc2303b5721ddcccf336a465f",
+    "/assets/icons/peixe.svg": "e8bf344c67d2bca10c6cc249e59aa0447646532c",
+    "/assets/icons/sopa.svg": "6a32ab11d987d103787c63503a4088f69d96350a",
+    "/assets/icons/vegetariano.svg": "fb6ae3fac1ce4a5636767a0daba9df501338641d",
+    "/index.html": "0e2ed559c7328af4f0ab5f1fc4caa3133ae80cf9",
+    "/main.92772ccbcc9c62db967b.js": "079d5a9cd90402ff09a600d6d31a5c4cff21e339",
+    "/polyfills.38cfeb63b91a963d9fbf.js": "ef2035f0504b4f77eac510c33595c81a5d09e33f",
+    "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/styles.0f0756a797bd95c61eb5.css": "650731f3157d6d26b88faa2dc53a11f81b496df8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
