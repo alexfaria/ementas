@@ -43,7 +43,7 @@ export class EmentasService {
   }
 
   private handleError(error: HttpErrorResponse) {
-      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+      console.error(error);
       if (this.fromLocalStorage()) {
         return of(this.diarias);
       } else {

@@ -41,7 +41,10 @@ export class Diaria implements Deserializable {
     this.data = new Date(json.Data);
     this.observacoes = json.Observacoes;
     this.almoco = new Ementa().deserialize(json.TiposRefeicao[0]);
-    this.jantar = new Ementa().deserialize(json.TiposRefeicao[1]);
+    this.jantar = null;
+    if (json.TiposRefeicao.length > 1) {
+      this.jantar = new Ementa().deserialize(json.TiposRefeicao[1]);
+    }
     this.id = Diaria.idCounter++;
     return this;
   }
