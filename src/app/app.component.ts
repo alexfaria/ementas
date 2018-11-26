@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingsService } from './settings.service';
+import { SettingsService } from './services/settings.service';
 import { DateAdapter } from '@angular/material';
 import { strings } from './strings';
 

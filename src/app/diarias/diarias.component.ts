@@ -7,8 +7,8 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { environment } from '../../environments/environment';
-import { EmentasService } from '../ementas.service';
-import { SettingsService } from '../settings.service';
+import { EmentasService } from '../services/ementas.service';
+import { SettingsService } from '../services/settings.service';
 import { BottomSheetComponent } from '../bottomsheet/bottomsheet.component';
 import { Diaria } from '../models';
 import { strings } from '../strings';
