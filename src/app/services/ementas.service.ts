@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
-import { Diaria } from './models';
-import { environment } from '../environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, tap, retry, catchError } from 'rxjs/operators';
+import { Diaria } from './../models';
+import { environment } from '../../environments/environment';
+import { throwError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class EmentasService {
     const apiUrl: string = environment.baseUrl + language.toUpperCase();
 
     return this.http.get(apiUrl).pipe(
+      retry(3),
       map(data => {
         this.diarias = [];
         for (let i in data['InfoDiaria']) {
@@ -25,7 +27,8 @@ export class EmentasService {
       }),
       tap(data => {
         localStorage.setItem('diarias', JSON.stringify(this.diarias));
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -38,4 +41,14 @@ export class EmentasService {
     }
     return true;
   }
+
+  private handleError(error: HttpErrorResponse) {
+      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+      if (this.fromLocalStorage()) {
+        return of(this.diarias);
+      } else {
+        // return an observable with a user-facing error message
+        return throwError('Something bad happened; please try again later.');
+      }
+    }
 }
