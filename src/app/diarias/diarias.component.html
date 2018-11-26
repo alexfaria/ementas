@@ -34,30 +34,34 @@
 	</mat-grid-list>
 
 	<mat-list (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" [@slideInOut]>
-		<h3 mat-subheader>{{strings.lunch[language]}}</h3>
-		<mat-list-item *ngFor="let prato of atual.almoco.pratos">
-			<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
-			<h4 mat-line>{{prato.nome}}</h4>
-			<p mat-line>
-				{{prato.calorias | number : '1.0-0'}} KCal
-			</p>
-			<button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
-				<mat-icon svgIcon="info"></mat-icon>
-			</button>
-		</mat-list-item>
+    <ng-container *ngIf="atual.almoco">
+      <h3 mat-subheader>{{strings.lunch[language]}}</h3>
+      <mat-list-item *ngFor="let prato of atual.almoco.pratos">
+        <mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
+        <h4 mat-line>{{prato.nome}}</h4>
+        <p mat-line>
+          {{prato.calorias | number : '1.0-0'}} KCal
+        </p>
+        <button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
+          <mat-icon svgIcon="info"></mat-icon>
+        </button>
+      </mat-list-item>
+    </ng-container>
 
 		<mat-divider></mat-divider>
 
-		<h3 mat-subheader>{{strings.dinner[language]}}</h3>
-		<mat-list-item *ngFor="let prato of atual.jantar.pratos">
-			<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
-			<h4 mat-line>{{prato.nome}}</h4>
-			<p mat-line>
-				{{prato.calorias | number : '1.0-0'}} KCal
-			</p>
-			<button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
-				<mat-icon svgIcon="info"></mat-icon>
-			</button>
-		</mat-list-item>
+    <ng-container *ngIf="atual.jantar">
+      <h3 mat-subheader>{{strings.dinner[language]}}</h3>
+      <mat-list-item *ngFor="let prato of atual.jantar.pratos">
+        <mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
+        <h4 mat-line>{{prato.nome}}</h4>
+        <p mat-line>
+          {{prato.calorias | number : '1.0-0'}} KCal
+        </p>
+        <button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
+          <mat-icon svgIcon="info"></mat-icon>
+        </button>
+      </mat-list-item>
+    </ng-container>
 	</mat-list>
 </ng-container>
