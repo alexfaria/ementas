@@ -1,67 +1,75 @@
-<div class="wrapper" *ngIf="loading">
-	<mat-spinner mode="indeterminate"> </mat-spinner>
-</div>
+<ng-container *ngIf="error">
+	<mat-card>
+		{{strings.error[language]}}
+	</mat-card>
+</ng-container>
 
-<ng-container *ngIf="!loading">
-	<mat-grid-list cols="12" rowHeight="5em">
-		<mat-grid-tile colspan="2" rowspan="1">
-			<button mat-icon-button (click)="swipeRight()" [disabled]="index == 0">
-				<mat-icon>arrow_back</mat-icon>
-			</button>
-		</mat-grid-tile>
-		<mat-grid-tile colspan="8" rowspan="1">
-			<button mat-button (click)="goToToday()" matTooltip="Ir para a ementa de hoje">
-				{{atual.fmtData(language)}}
-			</button>
-			<button mat-icon-button (click)="picker.open()">
-				<mat-icon>today</mat-icon>
-      </button>
+<ng-container *ngIf="!error">
+	<div class="wrapper" *ngIf="loading">
+		<mat-spinner mode="indeterminate"> </mat-spinner>
+	</div>
 
-			<button mat-icon-button (click)="openBottomSheet()">
-				<mat-icon svgIcon="info"></mat-icon>
-      </button>
+	<ng-container *ngIf="!loading">
+		<mat-grid-list cols="12" rowHeight="5em">
+			<mat-grid-tile colspan="2" rowspan="1">
+				<button mat-icon-button (click)="swipeRight()" [disabled]="index == 0">
+					<mat-icon>arrow_back</mat-icon>
+				</button>
+			</mat-grid-tile>
+			<mat-grid-tile colspan="8" rowspan="1">
+				<button mat-button (click)="goToToday()" matTooltip="Ir para a ementa de hoje">
+					{{atual.fmtData(language)}}
+				</button>
+				<button mat-icon-button (click)="picker.open()">
+					<mat-icon>today</mat-icon>
+				</button>
 
-			<input type="hidden" [matDatepicker]="picker" [value]="atual.data" [min]="diarias[0].data" [max]="diarias[diarias.length-1].data"
-			 (dateChange)="updateDiaria($event)">
-			<mat-datepicker touchUi #picker startView="month" [startAt]="atual.data"></mat-datepicker>
+				<button mat-icon-button (click)="openBottomSheet()">
+					<mat-icon svgIcon="info"></mat-icon>
+				</button>
 
-		</mat-grid-tile>
-		<mat-grid-tile colspan="2" rowspan="1">
-			<button mat-icon-button (click)="swipeLeft()" [disabled]="index == diarias.length - 1">
-				<mat-icon>arrow_forward</mat-icon>
-			</button>
-		</mat-grid-tile>
-	</mat-grid-list>
+				<input type="hidden" [matDatepicker]="picker" [value]="atual.data" [min]="diarias[0].data" [max]="diarias[diarias.length-1].data"
+				(dateChange)="updateDiaria($event)">
+				<mat-datepicker touchUi #picker startView="month" [startAt]="atual.data"></mat-datepicker>
 
-	<mat-list (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" [@slideInOut]>
-    <ng-container *ngIf="atual.almoco">
-      <h3 mat-subheader>{{strings.lunch[language]}}</h3>
-      <mat-list-item *ngFor="let prato of atual.almoco.pratos">
-        <mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
-        <h4 mat-line>{{prato.nome}}</h4>
-        <p mat-line>
-          {{prato.calorias | number : '1.0-0'}} KCal
-        </p>
-        <button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
-          <mat-icon svgIcon="info"></mat-icon>
-        </button>
-      </mat-list-item>
-    </ng-container>
+			</mat-grid-tile>
+			<mat-grid-tile colspan="2" rowspan="1">
+				<button mat-icon-button (click)="swipeLeft()" [disabled]="index == diarias.length - 1">
+					<mat-icon>arrow_forward</mat-icon>
+				</button>
+			</mat-grid-tile>
+		</mat-grid-list>
 
-		<mat-divider></mat-divider>
+		<mat-list (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" [@slideInOut]>
+		<ng-container *ngIf="atual.almoco">
+			<h3 mat-subheader>{{strings.lunch[language]}}</h3>
+			<mat-list-item *ngFor="let prato of atual.almoco.pratos">
+				<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
+				<h4 mat-line>{{prato.nome}}</h4>
+				<p mat-line>
+					{{prato.calorias | number : '1.0-0'}} KCal
+				</p>
+				<button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
+					<mat-icon svgIcon="info"></mat-icon>
+				</button>
+			</mat-list-item>
+		</ng-container>
 
-    <ng-container *ngIf="atual.jantar">
-      <h3 mat-subheader>{{strings.dinner[language]}}</h3>
-      <mat-list-item *ngFor="let prato of atual.jantar.pratos">
-        <mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
-        <h4 mat-line>{{prato.nome}}</h4>
-        <p mat-line>
-          {{prato.calorias | number : '1.0-0'}} KCal
-        </p>
-        <button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
-          <mat-icon svgIcon="info"></mat-icon>
-        </button>
-      </mat-list-item>
-    </ng-container>
-	</mat-list>
+			<mat-divider></mat-divider>
+
+		<ng-container *ngIf="atual.jantar">
+			<h3 mat-subheader>{{strings.dinner[language]}}</h3>
+			<mat-list-item *ngFor="let prato of atual.jantar.pratos">
+				<mat-icon mat-list-icon svgIcon="{{prato.tipo}}"></mat-icon>
+				<h4 mat-line>{{prato.nome}}</h4>
+				<p mat-line>
+					{{prato.calorias | number : '1.0-0'}} KCal
+				</p>
+				<button mat-icon-button (click)="showAllergens(prato.alergenos)" matTooltip="Mostrar alergenos" *ngIf="prato.alergenos.length > 0">
+					<mat-icon svgIcon="info"></mat-icon>
+				</button>
+			</mat-list-item>
+		</ng-container>
+		</mat-list>
+	</ng-container>
 </ng-container>
