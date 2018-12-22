@@ -68,8 +68,13 @@ export class Ementa implements Deserializable {
     this.info = json.InfoAdicional;
     this.tipo = json.Descricao.toLowerCase().replace(/ç/, 'c');
     this.pratos = [];
+    const pratos = []; // array to keep the read types. to filter out duplicates
     for (let i in json.TiposPrato) {
-      this.pratos.push(new Prato().deserialize(json.TiposPrato[i]));
+      const prato = new Prato().deserialize(json.TiposPrato[i]);
+      if (!pratos.includes(prato.tipo)) {
+        this.pratos.push(prato);
+        pratos.push(prato.tipo);
+      }
     }
     return this;
   }
