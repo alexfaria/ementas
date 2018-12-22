@@ -29,5 +29,9 @@ export const strings = {
     vegetarian: 'vegetariano',
     soup: 'sopa',
     diet: 'dieta'
+  },
+  error: {
+    pt: 'Ocorreu um erro. Tente novamente mais tarde',
+    en: 'Error. Try again later.'
   }
 };

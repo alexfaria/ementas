@@ -38,6 +38,7 @@ export class DiariasComponent implements OnInit {
   atual: Diaria;
   language: string;
   loading: boolean = true;
+  error: boolean = false;
   date: Date = new Date();
 
   constructor(
@@ -83,7 +84,10 @@ export class DiariasComponent implements OnInit {
           }
         } while(!found);
         this.loading = false;
-      });
+      }, (error) => {
+        this.error = true;
+      }
+      );
   }
 
   showAllergens(allergens) {
